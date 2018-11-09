@@ -1,0 +1,86 @@
+mkdir MYDIR
+echo 'created MYDIR'
+mkdir MYDIR/mydir
+echo 'created mydir'
+cd MYDIR
+
+for i in {1..15}
+do
+echo "This is my_file$i" >> my_file$i 
+if [[ $i -eq 15 ]]
+then
+echo "Not followed" >> my_file$i
+else
+echo "Followed by my_file$(($i+1))" >> my_file$i
+fi
+
+if [[ $i -eq 14 || $i -eq 15 ]]
+then
+echo "And then not followed" >> my_file$i
+else
+echo "Followed by my_file$(($i+2))" >> my_file$i
+fi
+done
+
+echo 'MYDIR listing'
+
+Files=`(find .  -type f)`
+for f in $Files
+do
+echo $(basename $f)
+done
+
+echo 'mydir listing'
+
+cd mydir
+
+subFiles=`(find .  -type f)`
+for f in $subFiles
+do
+echo $(basename $f)
+done
+
+cd ..
+
+files=`(find .  -type f)`
+for f in $files
+do
+x=`grep '1\|2' $f`
+if [ -n "$x" ]
+then
+mv $f mydir
+fi
+done
+
+echo 'MYDIR listing'
+
+MYDIRfiles=`(find .  -type f)`
+for y in $MYDIRfiles
+do
+echo $(basename $y)
+cat $(basename $y) >> Total
+done
+
+echo "Total"
+
+cat Total
+
+cd mydir
+
+echo 'mydir listing'
+
+subfiles=`(find .  -type f)`
+for f in $subfiles
+do
+echo $(basename $f)
+cat $(basename $f) >> total
+done
+
+echo "total"
+
+cat total
+
+cd ..
+rm -r mydir
+cd ..
+rm -r MYDIR
