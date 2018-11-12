@@ -1,0 +1,41 @@
+if [[ "$1" != "-Y" ]]
+then
+echo 'wrong number of command line arguments
+Usage: script2 -Y
+    or
+       script2 -Y <file1>
+    or
+       script2 -Y <file1> <file2>'
+
+
+else
+
+if [[ -z "2" ]]
+then
+echo 'Appopriate'
+
+
+elif [[ -n "$2" && -z "$3" ]]
+then
+echo "Appropriate, file1 = $2"
+for (( COUNTER = 1;COUNTER <= 8;COUNTER += 1 ))
+do
+echo "2 : $COUNTER"
+echo "2 : $COUNTER" >> $2
+done
+
+else
+echo "Appropriate, file1 = $2 & file2 = $3"
+for (( COUNTER = 1;COUNTER <= 8;COUNTER += 1 ))
+do
+echo "$2 : $COUNTER"
+echo "$2 : $COUNTER" >> $2
+done
+for (( COUNTER = 1;COUNTER <= 8;COUNTER += 1 ))
+do
+echo "$3 : $COUNTER"
+echo "$3 : $COUNTER" >> $3
+done
+
+fi
+fi
