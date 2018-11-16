@@ -1,0 +1,11 @@
+preppy:preppy.cpp
+     g++ -o preppy preppy.cpp
+     
+brochure: preppy
+     preppy division4/brochure.doc > brochure
+     preppy division3/brochure.doc >> brochure
+     preppy division2/brochure.doc >> brochure
+     preppy division1/brochure.doc >> brochure
+     
+clean:
+     rm preppy
